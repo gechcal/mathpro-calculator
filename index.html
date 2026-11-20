@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathPro Pro - Scientific & Engineering Suite</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- Left Collapsible Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <span class="brand-icon">&Sigma;</span>
+        <div>
+          <h2>MathPro <span class="pro-badge">PRO</span></h2>
+          <small>Scientific &amp; Math Suite</small>
+        </div>
+      </div>
+      <button id="closeSidebarBtn" class="close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+
+    <div class="sidebar-section">MAIN CALCULATORS</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-mode="scientific">🧮 Scientific</button>
+      <button class="nav-item" data-mode="graphing">📈 Graphing</button>
+      <button class="nav-item" data-mode="equation">🔢 Quadratic Solver</button>
+      <button class="nav-item" data-mode="matrix">▦ Matrix (2×2)</button>
+      <button class="nav-item" data-mode="statistics">📊 Statistics</button>
+      <button class="nav-item" data-mode="numbers">01 Number Systems</button>
+    </nav>
+
+    <div class="sidebar-section">TOOLS &amp; DATA</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item" id="openHistoryBtn">🕒 History</button>
+      <button class="nav-item" id="clearAllDataBtn">🗑 Reset History</button>
+    </nav>
+  </aside>
+
+  <!-- Main Workspace -->
+  <div class="app-container">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Open Menu">&#9776;</button>
+        <div>
+          <h1 id="workspaceTitle">Scientific Calculator</h1>
+          <p class="subtitle" id="statusSubtitle">Ready • Offline PWA Enabled</p>
+        </div>
+      </div>
+      <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle Theme">&#9728;</button>
+    </header>
+
+    <!-- 1. SCIENTIFIC CALCULATOR PANEL -->
+    <main id="scientificPanel" class="calculator-card">
+      <div class="mode-bar">
+        <div class="left-badges">
+          <span class="mode-label">SCIENTIFIC PRO</span>
+          <span id="memIndicator" class="mem-pill hidden">M</span>
+        </div>
+        <div class="angle-toggle">
+          <button id="degBtn" class="angle-btn active">DEG</button>
+          <button id="radBtn" class="angle-btn">RAD</button>
+        </div>
+      </div>
+
+      <div class="display-box">
+        <div class="display-top-row">
+          <div id="expressionDisplay" class="expression-text">Ready to calculate</div>
+          <button id="copyResultBtn" class="copy-btn" title="Copy Result">Copy</button>
+        </div>
+        <div id="resultDisplay" class="result-text">0</div>
+      </div>
+
+      <!-- Memory Strip -->
+      <div class="mem-strip">
+        <button class="mem-key" data-mem="MC">MC</button>
+        <button class="mem-key" data-mem="MR">MR</button>
+        <button class="mem-key" data-mem="M+">M+</button>
+        <button class="mem-key" data-mem="M-">M-</button>
+        <button class="mem-key" id="shift2ndBtn">2nd</button>
+      </div>
+
+      <div class="keypad">
+        <button class="key fn" id="trig1" data-action="fn" data-val="sin(">sin</button>
+        <button class="key fn" id="trig2" data-action="fn" data-val="cos(">cos</button>
+        <button class="key fn" id="trig3" data-action="fn" data-val="tan(">tan</button>
+        <button class="key fn" data-action="fn" data-val="asin(">sin⁻¹</button>
+        <button class="key fn" data-action="fn" data-val="acos(">cos⁻¹</button>
+
+        <button class="key fn" data-action="fn" data-val="atan(">tan⁻¹</button>
+        <button class="key fn" data-action="fn" data-val="sqrt(">&radic;x</button>
+        <button class="key fn" id="powKey" data-action="pow2">x²</button>
+        <button class="key fn" data-action="insert" data-val="^">xʸ</button>
+        <button class="key fn" data-action="fact">n!</button>
+
+        <button class="key fn" data-action="fn" data-val="log(">log</button>
+        <button class="key fn" data-action="fn" data-val="ln(">ln</button>
+        <button class="key fn" data-action="insert" data-val="π">&pi;</button>
+        <button class="key fn" data-action="insert" data-val="e">e</button>
+        <button class="key fn" data-action="inv">1/x</button>
+
+        <button class="key fn" data-action="insert" data-val="(">(</button>
+        <button class="key fn" data-action="insert" data-val=")">)</button>
+        <button class="key fn" data-action="insert" data-val="%">%</button>
+        <button class="key fn" data-action="fn" data-val="abs(">abs</button>
+        <button class="key fn" data-action="fn" data-val="cbrt(">&#8731;x</button>
+
+        <button class="key num" data-action="insert" data-val="7">7</button>
+        <button class="key num" data-action="insert" data-val="8">8</button>
+        <button class="key num" data-action="insert" data-val="9">9</button>
+        <button class="key danger" data-action="backspace">DEL</button>
+        <button class="key danger" data-action="clear">AC</button>
+
+        <button class="key num" data-action="insert" data-val="4">4</button>
+        <button class="key num" data-action="insert" data-val="5">5</button>
+        <button class="key num" data-action="insert" data-val="6">6</button>
+        <button class="key op" data-action="insert" data-val="*">&times;</button>
+        <button class="key op" data-action="insert" data-val="/">&divide;</button>
+
+        <button class="key num" data-action="insert" data-val="1">1</button>
+        <button class="key num" data-action="insert" data-val="2">2</button>
+        <button class="key num" data-action="insert" data-val="3">3</button>
+        <button class="key op" data-action="insert" data-val="+">+</button>
+        <button class="key op" data-action="insert" data-val="-">&minus;</button>
+
+        <button class="key num" data-action="insert" data-val="0">0</button>
+        <button class="key num" data-action="insert" data-val=".">.</button>
+        <button class="key fn" data-action="ans">ANS</button>
+        <button class="key equals span-2" data-action="calculate">=</button>
+      </div>
+    </main>
+
+    <!-- 2. GRAPHING PANEL -->
+    <section id="graphingPanel" class="calculator-card hidden">
+      <div class="mode-bar">
+        <span class="mode-label">FUNCTION GRAPH PLOTTER f(x)</span>
+        <div class="zoom-controls">
+          <button id="zoomInBtn" class="small-btn">+</button>
+          <button id="zoomOutBtn" class="small-btn">-</button>
+        </div>
+      </div>
+      <div class="tool-row">
+        <input id="graphFuncInput" type="text" class="text-input" placeholder="e.g. sin(x), x^2 - 4" value="sin(x)" />
+        <button id="plotGraphBtn" class="action-btn">Plot</button>
+      </div>
+      <canvas id="graphCanvas" width="560" height="330" class="graph-canvas"></canvas>
+    </section>
+
+    <!-- 3. EQUATION SOLVER PANEL -->
+    <section id="equationPanel" class="calculator-card hidden">
+      <div class="mode-bar">
+        <span class="mode-label">QUADRATIC SOLVER (ax² + bx + c = 0)</span>
+      </div>
+      <div class="coeff-grid">
+        <div>
+          <label for="coeffA">a</label>
+          <input id="coeffA" type="number" step="any" class="text-input" value="1" />
+        </div>
+        <div>
+          <label for="coeffB">b</label>
+          <input id="coeffB" type="number" step="any" class="text-input" value="-5" />
+        </div>
+        <div>
+          <label for="coeffC">c</label>
+          <input id="coeffC" type="number" step="any" class="text-input" value="6" />
+        </div>
+      </div>
+      <button id="solveQuadBtn" class="action-btn full-width">Solve Equation</button>
+      <div id="quadResult" class="result-box">Roots will appear here</div>
+    </section>
+
+    <!-- 4. MATRIX 2x2 PANEL -->
+    <section id="matrixPanel" class="calculator-card hidden">
+      <div class="mode-bar">
+        <span class="mode-label">2×2 MATRIX CALCULATOR</span>
+      </div>
+      <div class="matrix-pair">
+        <div>
+          <p class="mini-label">Matrix A</p>
+          <div class="mat-grid">
+            <input id="a11" type="number" step="any" class="text-input" value="2" />
+            <input id="a12" type="number" step="any" class="text-input" value="1" />
+            <input id="a21" type="number" step="any" class="text-input" value="3" />
+            <input id="a22" type="number" step="any" class="text-input" value="4" />
+          </div>
+        </div>
+        <div>
+          <p class="mini-label">Matrix B</p>
+          <div class="mat-grid">
+            <input id="b11" type="number" step="any" class="text-input" value="1" />
+            <input id="b12" type="number" step="any" class="text-input" value="0" />
+            <input id="b21" type="number" step="any" class="text-input" value="2" />
+            <input id="b22" type="number" step="any" class="text-input" value="5" />
+          </div>
+        </div>
+      </div>
+      <div class="tool-row mt-10">
+        <button id="matAddBtn" class="action-btn">A + B</button>
+        <button id="matMulBtn" class="action-btn">A × B</button>
+        <button id="matDetBtn" class="action-btn">det(A)</button>
+      </div>
+      <div id="matrixResult" class="result-box">Matrix result will appear here</div>
+    </section>
+
+    <!-- 5. STATISTICS PANEL -->
+    <section id="statisticsPanel" class="calculator-card hidden">
+      <div class="mode-bar">
+        <span class="mode-label">DESCRIPTIVE STATISTICS</span>
+      </div>
+      <div class="tool-row">
+        <input id="statsInput" type="text" class="text-input" placeholder="Comma separated numbers e.g. 10, 20, 30, 40" value="12, 15, 18, 22, 30" />
+        <button id="calcStatsBtn" class="action-btn">Calculate</button>
+      </div>
+      <div id="statsResult" class="result-box">Mean, Median, Sum &amp; Count will appear here</div>
+    </section>
+
+    <!-- 6. NUMBER SYSTEMS CONVERTER PANEL -->
+    <section id="numbersPanel" class="calculator-card hidden">
+      <div class="mode-bar">
+        <span class="mode-label">BASE CONVERTER (DEC / BIN / OCT / HEX)</span>
+      </div>
+      <div class="tool-row">
+        <input id="baseInput" type="text" class="text-input" placeholder="Enter value" value="255" />
+        <select id="baseFrom" class="select-input">
+          <option value="10">Decimal (10)</option>
+          <option value="2">Binary (2)</option>
+          <option value="8">Octal (8)</option>
+          <option value="16">Hex (16)</option>
+        </select>
+        <button id="convertBaseBtn" class="action-btn">Convert</button>
+      </div>
+      <div class="base-grid">
+        <div class="base-card"><span>DEC</span><strong id="outDec">255</strong></div>
+        <div class="base-card"><span>BIN</span><strong id="outBin">11111111</strong></div>
+        <div class="base-card"><span>OCT</span><strong id="outOct">377</strong></div>
+        <div class="base-card"><span>HEX</span><strong id="outHex">FF</strong></div>
+      </div>
+    </section>
+
+    <!-- HISTORY PANEL -->
+    <section id="historyPanel" class="history-panel hidden">
+      <div class="history-header">
+        <h3>Saved History</h3>
+        <div>
+          <button id="clearHistoryBtn" class="small-btn">Clear</button>
+          <button id="closeHistoryBtn" class="small-btn">Close</button>
+        </div>
+      </div>
+      <ul id="historyList" class="history-list">
+        <li class="empty-history">No calculations yet.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Auto-dismissing Toast Notification (3.5s) -->
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
